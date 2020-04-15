@@ -5,18 +5,26 @@ Hacer la la función “calculaRetorno” retorne un arreglo con la suma y la el
 */
 #include <iostream>
 int *calculaRetorno(int,int);
+void calcularReferencia(int,int,int&,int&);
 int main(){
     int num1,num2,suma=0,multiplicacion=0;
     std::cout<<"Humano ingresa dos numeros\n";
     std::cout<<"Numero 1: ";std::cin>>num1;
     std::cout<<"Numero 2: ";std::cin>>num2;
+    calcularReferencia(num1,num2,suma,multiplicacion);
+    /*
     int *resultado=calculaRetorno(num1,num2);
     suma=resultado[0];
     multiplicacion=resultado[1];
+    */
     std::cout<<"El resultado de la suma es: "<<suma<<"\n";
     std::cout<<"El resultado de la nultiplicacion es: "<<multiplicacion<<"\n";
     system("pause");
     return 0;
+}
+void calcularReferencia(int num1,int num2,int& suma,int& multiplicacion){
+    suma=num1+num2;
+    multiplicacion=num1*num2;
 }
 int *calculaRetorno(int num1,int num2){
     int suma=num1+num2;
