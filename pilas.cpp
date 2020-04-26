@@ -1,10 +1,3 @@
-/*
-Crear la función mostrarNodos.
-Crear elementos de forma dinámica.
-Mostrar los nodos creados previamente.
-Borrar todos los nodos.
-Volver a mostrar la pila vacía.
-*/
 #include <iostream>
 struct Nodo
 {
@@ -13,24 +6,22 @@ struct Nodo
 };
 void insertaNodo(Nodo *&pila,int n);
 void quitarNodo(Nodo *&pila,int &n);
-void MostrarNodos(Nodo *&pila);
 int main(){
     Nodo *pila=NULL;
-    int numero,nElementos,elemento;
-    std::cout<<"Humano cuantos elementos deseas insertar: ";
-    std::cin>>nElementos;
-    for (int i = 0; i < nElementos; i++)
-    {
-        std::cout<<"Elemento "<<i+1<<" :";
-        std::cin>>elemento;
-        insertaNodo(pila,elemento);
-    }
-    MostrarNodos(pila);
+    int numero;
+    insertaNodo(pila,5);
+    insertaNodo(pila,6);
+    insertaNodo(pila,7);
     while (pila!=NULL)
     {
         quitarNodo(pila,numero);
+        if(pila!=NULL){
+            std::cout<<numero<<" , ";
+        }else{
+            std::cout<<numero<<" . \n";
+        }
     }
-    MostrarNodos(pila);
+    
     system("pause");
     return 0;
 }
@@ -46,12 +37,4 @@ void quitarNodo(Nodo *&pila,int &n){
     n=aux->dato;
     pila=aux->siguiente;
     delete aux;
-}
-void MostrarNodos(Nodo *&pila){
-    while (pila!=NULL)
-    {
-        std::cout<<pila->dato<<"\n";
-        pila=pila->siguiente;
-    }
-    
 }
