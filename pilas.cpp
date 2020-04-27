@@ -6,22 +6,25 @@ struct Nodo
 };
 void insertaNodo(Nodo *&pila,int n);
 void quitarNodo(Nodo *&pila,int &n);
+void mostrarNodos(Nodo *&pila);
 int main(){
     Nodo *pila=NULL;
-    int numero;
-    insertaNodo(pila,5);
-    insertaNodo(pila,6);
-    insertaNodo(pila,7);
+    int numero,nElementos,elemento;
+    std::cout<<"Humano cunatos elementos deseas insertar: ";
+    std::cin>>nElementos;
+    for (int  i = 0; i < nElementos; i++)
+    {
+        std::cout<<"Elemento "<<i+1<<": ";
+        std::cin>>elemento;
+        insertaNodo(pila,elemento);
+    }
+    std::cout<<"\n";
+    mostrarNodos(pila);
     while (pila!=NULL)
     {
         quitarNodo(pila,numero);
-        if(pila!=NULL){
-            std::cout<<numero<<" , ";
-        }else{
-            std::cout<<numero<<" . \n";
-        }
     }
-    
+    mostrarNodos(pila);
     system("pause");
     return 0;
 }
@@ -37,4 +40,11 @@ void quitarNodo(Nodo *&pila,int &n){
     n=aux->dato;
     pila=aux->siguiente;
     delete aux;
+}
+void mostrarNodos(Nodo *&pila){
+    while (pila!=NULL)
+    {
+        std::cout<<pila->dato<<"\n";
+        pila=pila->siguiente;
+    }
 }
