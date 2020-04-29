@@ -6,13 +6,21 @@ struct Nodo
 };
 void insertarNodo(Nodo *&front,Nodo *&back,int dato);
 void mostrarNodos(Nodo *&front);
+void eliminarNodo(Nodo *&front,Nodo *&back,int &dato);
 int main(){
     Nodo *front=NULL;
     Nodo *back=NULL;
+    int dato;
     insertarNodo(front,back,5);
     insertarNodo(front,back,6);
     insertarNodo(front,back,7);
-    mostrarNodos(front);
+    //mostrarNodos(front);
+    while (front!=NULL)
+    {
+        eliminarNodo(front,back,dato);
+        std::cout<<"Se ha eliminado el nodo: "<<dato<<"\n";
+    }
+    
     system("pause");
     return 0;
 }
@@ -37,4 +45,15 @@ void mostrarNodos(Nodo *&front){
         front=front->siguiente;
     }
     
+}
+void eliminarNodo(Nodo *&front,Nodo *&back,int &dato){
+    dato=front->dato;
+    Nodo *aux=front;
+    if(front==back){
+        front=NULL;
+        back=NULL;
+    }else{
+        front=aux->siguiente;
+    }
+    delete aux;
 }
