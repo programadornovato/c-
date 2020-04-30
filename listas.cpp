@@ -5,11 +5,13 @@ struct Nodo
     Nodo *siguiente;
 };
 void insertarNodoLista(Nodo *&lista,int dato);
+void mostrarNodoLista(Nodo *&lista);
 int main(){
     Nodo *lista=NULL;
     insertarNodoLista(lista,5);
     insertarNodoLista(lista,6);
     insertarNodoLista(lista,4);
+    mostrarNodoLista(lista);
     system("pause");
     return 0;
 }
@@ -30,4 +32,14 @@ void insertarNodoLista(Nodo *&lista,int dato){
         nuevoNodo->siguiente=aux1;
     }
     std::cout<<"El dato "<<dato<<" se ha insertado\n";
+}
+void mostrarNodoLista(Nodo *&lista){
+    Nodo *actual=new Nodo();
+    actual=lista;
+    while (actual!=NULL)
+    {
+        std::cout<<"Valor del nodo es "<<actual->dato<<"\n";
+        actual=actual->siguiente;
+    }
+    
 }
