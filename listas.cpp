@@ -7,8 +7,9 @@ struct Nodo
 void insertarNodoLista(Nodo *&lista,int dato);
 void mostrarNodoLista(Nodo *&lista);
 bool buscarNodoLista(Nodo *&lista,int buscar);
+bool eliminarNodoLista(Nodo *&lista,int numeroBorrar);
 int main(){
-    int dato;
+    int dato,numeroEliminar;
     char respuesta;
     Nodo *lista=NULL;
     regresar:
@@ -21,6 +22,7 @@ int main(){
         goto regresar;
     }
     mostrarNodoLista(lista);
+    /*
     std::cout<<"Numero a buscar: ";
     std::cin>>dato;
     if(buscarNodoLista(lista,dato)==true){
@@ -29,6 +31,15 @@ int main(){
     else{
         std::cout<<"El valor "<<dato<<" no esta en la lista\n";
     }
+    */
+   std::cout<<"Numero a eliminar:";
+   std::cin>>numeroEliminar;
+   if(eliminarNodoLista(lista,numeroEliminar)==true){
+       std::cout<<"El numero "<<numeroEliminar<<" ha sido eliminado de la lista\n";
+   }else{
+       std::cout<<"El numero "<<numeroEliminar<<" no ha sido encontrado\n";
+   }
+   mostrarNodoLista(lista);
     system("pause");
     return 0;
 }
@@ -70,6 +81,29 @@ bool buscarNodoLista(Nodo *&lista,int buscar){
             encontrado=true;
         }
         actual=actual->siguiente;
+    }
+    return encontrado;
+}
+
+bool eliminarNodoLista(Nodo *&lista,int numeroBorrar){
+    bool encontrado=false;
+    if(lista!=NULL){
+        Nodo *aux=lista,*anterior=NULL;
+        while ( (aux!=NULL) && (aux->dato!=numeroBorrar) ){
+            anterior=aux;
+            aux=aux->siguiente;
+        }
+        if(aux==NULL){
+            encontrado=false;
+        }else if(anterior==NULL){
+            lista=lista->siguiente;
+            delete aux;
+            encontrado=true;
+        }else{
+            anterior->siguiente=aux->siguiente;
+            delete aux;
+            encontrado=true;
+        }
     }
     return encontrado;
 }
