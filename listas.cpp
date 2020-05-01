@@ -6,12 +6,29 @@ struct Nodo
 };
 void insertarNodoLista(Nodo *&lista,int dato);
 void mostrarNodoLista(Nodo *&lista);
+bool buscarNodoLista(Nodo *&lista,int buscar);
 int main(){
+    int dato;
+    char respuesta;
     Nodo *lista=NULL;
-    insertarNodoLista(lista,5);
-    insertarNodoLista(lista,6);
-    insertarNodoLista(lista,4);
+    regresar:
+    std::cout<<"Ingresa un dato en la lista: ";
+    std::cin>>dato;
+    insertarNodoLista(lista,dato);
+    std::cout<<"Deseas insertar otro dato (s/n):";
+    std::cin>>respuesta;
+    if(respuesta=='s'  || respuesta=='S'){
+        goto regresar;
+    }
     mostrarNodoLista(lista);
+    std::cout<<"Numero a buscar: ";
+    std::cin>>dato;
+    if(buscarNodoLista(lista,dato)==true){
+        std::cout<<"El valor "<<dato<<" si esta en la lista\n";
+    }
+    else{
+        std::cout<<"El valor "<<dato<<" no esta en la lista\n";
+    }
     system("pause");
     return 0;
 }
@@ -42,4 +59,17 @@ void mostrarNodoLista(Nodo *&lista){
         actual=actual->siguiente;
     }
     
+}
+bool buscarNodoLista(Nodo *&lista,int buscar){
+    bool encontrado=false;
+    Nodo *actual=new Nodo();
+    actual=lista;
+    while ( (actual!=NULL) && (actual->dato<=buscar) )
+    {
+        if(actual->dato==buscar){
+            encontrado=true;
+        }
+        actual=actual->siguiente;
+    }
+    return encontrado;
 }
