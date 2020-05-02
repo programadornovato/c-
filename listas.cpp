@@ -8,8 +8,9 @@ void insertarNodoLista(Nodo *&lista,int dato);
 void mostrarNodoLista(Nodo *&lista);
 bool buscarNodoLista(Nodo *&lista,int buscar);
 bool eliminarNodoLista(Nodo *&lista,int numeroBorrar);
+void borrarLista(Nodo *&lista,int &numero);
 int main(){
-    int dato,numeroEliminar;
+    int dato,numeroEliminar,numeroEliminado;
     char respuesta;
     Nodo *lista=NULL;
     regresar:
@@ -32,6 +33,7 @@ int main(){
         std::cout<<"El valor "<<dato<<" no esta en la lista\n";
     }
     */
+   /*
    std::cout<<"Numero a eliminar:";
    std::cin>>numeroEliminar;
    if(eliminarNodoLista(lista,numeroEliminar)==true){
@@ -40,6 +42,13 @@ int main(){
        std::cout<<"El numero "<<numeroEliminar<<" no ha sido encontrado\n";
    }
    mostrarNodoLista(lista);
+   */
+    while (lista!=NULL)
+    {
+        borrarLista(lista,numeroEliminado);
+        std::cout<<"Se elimino "<<numeroEliminado<<"\n";
+    }
+    mostrarNodoLista(lista);
     system("pause");
     return 0;
 }
@@ -62,14 +71,18 @@ void insertarNodoLista(Nodo *&lista,int dato){
     std::cout<<"El dato "<<dato<<" se ha insertado\n";
 }
 void mostrarNodoLista(Nodo *&lista){
-    Nodo *actual=new Nodo();
-    actual=lista;
-    while (actual!=NULL)
-    {
-        std::cout<<"Valor del nodo es "<<actual->dato<<"\n";
-        actual=actual->siguiente;
+    if(lista!=NULL){
+        Nodo *actual=new Nodo();
+        actual=lista;
+        while (actual!=NULL)
+        {
+            std::cout<<"Valor del nodo es "<<actual->dato<<"\n";
+            actual=actual->siguiente;
+        }
     }
-    
+    else{
+        std::cout<<"Esta lista esta vacia\n";
+    }
 }
 bool buscarNodoLista(Nodo *&lista,int buscar){
     bool encontrado=false;
@@ -106,4 +119,12 @@ bool eliminarNodoLista(Nodo *&lista,int numeroBorrar){
         }
     }
     return encontrado;
+}
+void borrarLista(Nodo *&lista,int &numero){
+    if(lista!=NULL){
+        Nodo *aux=lista;
+        numero=aux->dato;
+        lista=aux->siguiente;
+        delete aux;
+    }
 }
