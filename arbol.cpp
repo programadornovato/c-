@@ -7,6 +7,7 @@ struct Nodo{
 Nodo *arbol=NULL;
 Nodo *crearNodo(int dato);
 void insertarNodo(Nodo *&arbol,int dato);
+void mostrarArbol(Nodo *&arbol,int cont);
 void menu();
 int main(){
     menu();
@@ -19,7 +20,8 @@ void menu(){
     system("cls");
     std::cout<<"\tMENU\n";
     std::cout<<"1.- Insertar un nodo\n";
-    std::cout<<"2.- Salir\n";
+    std::cout<<"2.- Mostrar arbol\n";
+    std::cout<<"3.- Salir\n";
     std::cout<<"Humano ingresa una opcion:";
     std::cin>>opcion;
     switch (opcion)
@@ -31,7 +33,13 @@ void menu(){
         system("pause");
         goto regreaMenu;
         break;
-    
+    case 2:
+        std::cout<<"\n\tARBOL\n";
+        mostrarArbol(arbol,0);
+        std::cout<<"\n";
+        system("pause");
+        goto regreaMenu;
+        break;
     default:
         return;
         break;
@@ -54,5 +62,18 @@ void insertarNodo(Nodo *&arbol,int dato){
         }else{
             insertarNodo(arbol->der,dato);
         }
+    }
+}
+void mostrarArbol(Nodo *&arbol,int cont){
+    if(arbol==NULL){
+        return;
+    }else{
+        mostrarArbol(arbol->der,cont+1);
+        for (int i = 0; i < cont; i++)
+        {
+            std::cout<<"       ";
+        }
+        std::cout<<arbol->dato<<"\n";
+        mostrarArbol(arbol->izq,cont+1);
     }
 }
