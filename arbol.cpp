@@ -8,6 +8,7 @@ Nodo *arbol=NULL;
 Nodo *crearNodo(int dato);
 void insertarNodo(Nodo *&arbol,int dato);
 void mostrarArbol(Nodo *&arbol,int cont);
+bool buscarNodoArbol(Nodo *&arbol,int numBuscar);
 void menu();
 int main(){
     menu();
@@ -16,12 +17,13 @@ int main(){
 }
 void menu(){
     int opcion,dato;
-    regreaMenu:
+    regresaMenu:
     system("cls");
     std::cout<<"\tMENU\n";
     std::cout<<"1.- Insertar un nodo\n";
     std::cout<<"2.- Mostrar arbol\n";
-    std::cout<<"3.- Salir\n";
+    std::cout<<"3.- Buscar un nodo en el arbol\n";
+    std::cout<<"4.- Salir\n";
     std::cout<<"Humano ingresa una opcion:";
     std::cin>>opcion;
     switch (opcion)
@@ -31,14 +33,25 @@ void menu(){
         std::cin>>dato;
         insertarNodo(arbol,dato);
         system("pause");
-        goto regreaMenu;
+        goto regresaMenu;
         break;
     case 2:
         std::cout<<"\n\tARBOL\n";
         mostrarArbol(arbol,0);
         std::cout<<"\n";
         system("pause");
-        goto regreaMenu;
+        goto regresaMenu;
+        break;
+    case 3:
+        std::cout<<"Ingrese el numero a buscar en el arbol:";
+        std::cin>>dato;
+        if(buscarNodoArbol(arbol,dato)==true){
+            std::cout<<"El dato "<<dato<<" si se encontro en el arbol\n";
+        }else{
+            std::cout<<"El dato "<<dato<<" no se encontro en el arbol\n";
+        }
+        system("pause");
+        goto regresaMenu;
         break;
     default:
         return;
@@ -75,5 +88,16 @@ void mostrarArbol(Nodo *&arbol,int cont){
         }
         std::cout<<arbol->dato<<"\n";
         mostrarArbol(arbol->izq,cont+1);
+    }
+}
+bool buscarNodoArbol(Nodo *&arbol,int numBuscar){
+    if(arbol==NULL){
+        return false;
+    }else if(arbol->dato==numBuscar){
+        return true;
+    }else if(numBuscar<arbol->dato){
+        return buscarNodoArbol(arbol->izq,numBuscar);
+    }else{
+        return buscarNodoArbol(arbol->der,numBuscar);
     }
 }
