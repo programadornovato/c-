@@ -10,6 +10,7 @@ void insertarNodo(Nodo *&arbol,int dato);
 void mostrarArbol(Nodo *&arbol,int cont);
 bool buscarNodoArbol(Nodo *&arbol,int numBuscar);
 void preorden(Nodo *&arbol);
+void inorden(Nodo *&arbol);
 void menu();
 int main(){
     menu();
@@ -25,7 +26,8 @@ void menu(){
     std::cout<<"2.- Mostrar arbol\n";
     std::cout<<"3.- Buscar un nodo en el arbol\n";
     std::cout<<"4.- Mostrar arbol en preorden\n";
-    std::cout<<"5.- Salir\n";
+    std::cout<<"5.- Mostrar arbol en inorden\n";
+    std::cout<<"6.- Salir\n";
     std::cout<<"Humano ingresa una opcion:";
     std::cin>>opcion;
     switch (opcion)
@@ -58,6 +60,13 @@ void menu(){
     case 4: 
         std::cout<<"\t ARBOL EN PREORDEN\n";
         preorden(arbol);
+        std::cout<<"\n";
+        system("pause");
+        goto regresaMenu;
+        break;
+    case 5:
+        std::cout<<"\t ARBOL EN INORDEN\n";
+        inorden(arbol);
         std::cout<<"\n";
         system("pause");
         goto regresaMenu;
@@ -117,5 +126,14 @@ void preorden(Nodo *&arbol){
         std::cout<<arbol->dato<<" - ";
         preorden(arbol->izq);
         preorden(arbol->der);
+    }
+}
+void inorden(Nodo *&arbol){
+    if(arbol==NULL){
+        return;
+    }else{
+        inorden(arbol->izq);
+        std::cout<<arbol->dato<<" - ";
+        inorden(arbol->der);
     }
 }
