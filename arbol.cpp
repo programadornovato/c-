@@ -199,23 +199,29 @@ void buscarParaEliminar(Nodo *&arbol,int numeroEliminar){
     }
 }
 void eliminarNodo(Nodo *&arbol){
-    if(arbol->izq && arbol->der){
+    if(arbol->izq && arbol->der){//Si hay sub nodo izq y der
         Nodo *minimo=minimoNodo(arbol->der);
         arbol->dato=minimo->dato;
         eliminarNodo(minimo);
-    }else if(arbol->izq){
+    }else if(arbol->izq){//Si hay sub nodo izq
         remplazarNodo(arbol,arbol->izq);
-    }else if(arbol->der){
+    }else if(arbol->der){//Si hay sub nodo der
         remplazarNodo(arbol,arbol->der);
+    }else{//Si no hay sub nodo
+        remplazarNodo(arbol,NULL);
     }
 }
 void remplazarNodo(Nodo *arbol,Nodo *nuevo){
     if(arbol->padre){
-        if(arbol->dato==arbol->padre->izq->dato){
-            arbol->padre->izq=nuevo;
+        if(arbol->padre->izq!=NULL){
+            if(arbol->dato==arbol->padre->izq->dato){
+                arbol->padre->izq=nuevo;
+            }
         }
-        if(arbol->dato==arbol->padre->der->dato){
-            arbol->padre->der=nuevo;
+        if(arbol->padre->der!=NULL){
+            if(arbol->dato==arbol->padre->der->dato){
+                arbol->padre->der=nuevo;
+            }
         }
     }
     if(nuevo){
