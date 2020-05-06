@@ -15,6 +15,7 @@ void inorden(Nodo *&arbol);
 void postorden(Nodo *&arbol);
 void buscarParaEliminar(Nodo *&arbol,int numeroEliminar);
 void eliminarNodo(Nodo *&arbol);
+Nodo *minimoNodo(Nodo *&arbol);
 void menu();
 int main(){
     menu();
@@ -32,7 +33,9 @@ void menu(){
     std::cout<<"4.- Mostrar arbol en preorden\n";
     std::cout<<"5.- Mostrar arbol en inorden\n";
     std::cout<<"6.- Mostrar arbol en postorden\n";
-    std::cout<<"7.- Salir\n";
+    std::cout<<"7.- Ingresar datos de ejemplo\n";
+    std::cout<<"8.- Eliminar nodo\n";
+    std::cout<<"9.- Salir\n";
     std::cout<<"Humano ingresa una opcion:";
     std::cin>>opcion;
     switch (opcion)
@@ -80,6 +83,28 @@ void menu(){
         std::cout<<"\t ARBOL EN POSTORDEN\n";
         postorden(arbol);
         std::cout<<"\n";
+        system("pause");
+        goto regresaMenu;
+        break;
+    case 7:
+        insertarNodo(arbol,10,NULL);
+        insertarNodo(arbol,5,NULL);
+        insertarNodo(arbol,3,NULL);
+        insertarNodo(arbol,8,NULL);
+        insertarNodo(arbol,6,NULL);
+        insertarNodo(arbol,9,NULL);
+        insertarNodo(arbol,7,NULL);
+        insertarNodo(arbol,15,NULL);
+        insertarNodo(arbol,12,NULL);
+        insertarNodo(arbol,20,NULL);
+        insertarNodo(arbol,30,NULL);
+        system("pause");
+        goto regresaMenu;
+        break;
+    case 8:
+        std::cout<<"Humano ingresa el nodo a eliminar:";
+        std::cin>>dato;
+        buscarParaEliminar(arbol,dato);
         system("pause");
         goto regresaMenu;
         break;
@@ -169,5 +194,21 @@ void buscarParaEliminar(Nodo *&arbol,int numeroEliminar){
         buscarParaEliminar(arbol->der,numeroEliminar);
     }else{
         eliminarNodo(arbol);
+    }
+}
+void eliminarNodo(Nodo *&arbol){
+    if(arbol->izq && arbol->der){
+        Nodo *minimo=minimoNodo(arbol->der);
+        arbol->dato=minimo->dato;
+        eliminarNodo(minimo);
+    }
+}
+Nodo *minimoNodo(Nodo *&arbol){
+    if(arbol==NULL){
+        return NULL;
+    }else if(arbol->izq){
+        return minimoNodo(arbol->izq);
+    }else{
+        return arbol;
     }
 }
