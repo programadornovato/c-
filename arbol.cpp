@@ -16,6 +16,8 @@ void postorden(Nodo *&arbol);
 void buscarParaEliminar(Nodo *&arbol,int numeroEliminar);
 void eliminarNodo(Nodo *&arbol);
 Nodo *minimoNodo(Nodo *&arbol);
+void remplazarNodo(Nodo *arbol,Nodo *nuevo);
+void destruirNodo(Nodo *nodoDestruir);
 void menu();
 int main(){
     menu();
@@ -201,7 +203,31 @@ void eliminarNodo(Nodo *&arbol){
         Nodo *minimo=minimoNodo(arbol->der);
         arbol->dato=minimo->dato;
         eliminarNodo(minimo);
+    }else if(arbol->izq){
+        remplazarNodo(arbol,arbol->izq);
+    }else if(arbol->der){
+        remplazarNodo(arbol,arbol->der);
     }
+}
+void remplazarNodo(Nodo *arbol,Nodo *nuevo){
+    if(arbol->padre){
+        if(arbol->dato==arbol->padre->izq->dato){
+            arbol->padre->izq=nuevo;
+        }
+        if(arbol->dato==arbol->padre->der->dato){
+            arbol->padre->der=nuevo;
+        }
+    }
+    if(nuevo){
+        nuevo->padre=arbol->padre;
+    }
+    destruirNodo(arbol);
+}
+void destruirNodo(Nodo *nodoDestruir){
+    nodoDestruir->izq=NULL;
+    nodoDestruir->der=NULL;
+    nodoDestruir->padre=NULL;
+    delete nodoDestruir;
 }
 Nodo *minimoNodo(Nodo *&arbol){
     if(arbol==NULL){
