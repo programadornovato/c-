@@ -3,15 +3,18 @@ struct Nodo{
     int dato;
     Nodo *izq;
     Nodo *der;
+    Nodo *padre;
 };
 Nodo *arbol=NULL;
-Nodo *crearNodo(int dato);
-void insertarNodo(Nodo *&arbol,int dato);
+Nodo *crearNodo(int dato,Nodo *padre);
+void insertarNodo(Nodo *&arbol,int dato,Nodo *padre);
 void mostrarArbol(Nodo *&arbol,int cont);
 bool buscarNodoArbol(Nodo *&arbol,int numBuscar);
 void preorden(Nodo *&arbol);
 void inorden(Nodo *&arbol);
 void postorden(Nodo *&arbol);
+void buscarParaEliminar(Nodo *&arbol,int numeroEliminar);
+void eliminarNodo(Nodo *&arbol);
 void menu();
 int main(){
     menu();
@@ -37,7 +40,7 @@ void menu(){
     case 1:
         std::cout<<"Ingresa el numero del nodo a insertar:";
         std::cin>>dato;
-        insertarNodo(arbol,dato);
+        insertarNodo(arbol,dato,NULL);
         system("pause");
         goto regresaMenu;
         break;
@@ -85,22 +88,23 @@ void menu(){
         break;
     }
 }
-Nodo *crearNodo(int dato){
+Nodo *crearNodo(int dato,Nodo *padre){
     Nodo *nuevoNodo=new Nodo();
     nuevoNodo->dato=dato;
     nuevoNodo->izq=NULL;
     nuevoNodo->der=NULL;
+    nuevoNodo->padre=padre;
 }
-void insertarNodo(Nodo *&arbol,int dato){
+void insertarNodo(Nodo *&arbol,int dato,Nodo *padre){
     if(arbol==NULL){
-        Nodo *nuevoNodo=crearNodo(dato);
+        Nodo *nuevoNodo=crearNodo(dato,padre);
         arbol=nuevoNodo;
     }else{
         int valorRaiz=arbol->dato;
         if(dato<valorRaiz){
-            insertarNodo(arbol->izq,dato);
+            insertarNodo(arbol->izq,dato,arbol);
         }else{
-            insertarNodo(arbol->der,dato);
+            insertarNodo(arbol->der,dato,arbol);
         }
     }
 }
@@ -154,5 +158,16 @@ void postorden(Nodo *&arbol){
         postorden(arbol->izq);
         postorden(arbol->der);
         std::cout<<arbol->dato<<" - ";
+    }
+}
+void buscarParaEliminar(Nodo *&arbol,int numeroEliminar){
+    if(arbol==NULL){
+        return;
+    }else if(numeroEliminar < arbol->dato){
+        buscarParaEliminar(arbol->izq,numeroEliminar);
+    }else if(numeroEliminar > arbol->dato){
+        buscarParaEliminar(arbol->der,numeroEliminar);
+    }else{
+        eliminarNodo(arbol);
     }
 }
