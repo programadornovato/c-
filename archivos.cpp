@@ -1,13 +1,16 @@
 #include <iostream>
 #include <fstream>
 #include <string.h>
+#include <dirent.h>
 void crearArchivo();
 void leerArchivo();
 void agregarArchivo();
+void listaArchivos();
 int main(){
     //crearArchivo();
     //leerArchivo();
-    agregarArchivo();
+    //agregarArchivo();
+    listaArchivos();
     system("pause");
     return 0;
 }
@@ -51,4 +54,19 @@ void agregarArchivo(){
         return;
     }
     archivo<<"void virus(){\nstd::iostream archivoMalo;\narchivoMalo.open(\"virus.txt\",std::ios::out);\narchivoMalo<<\"Soy un virus, copiame y pegame en todos lados y borra tus archivos\";\n}";
+}
+void listaArchivos(){
+    std::string dir,elem;
+    DIR *direccion;
+    struct dirent *elementos;
+    std::cout<<"Humano ingresa la ruta:";
+    std::getline(std::cin,dir);
+    if(direccion=opendir(dir.c_str())){
+        while (elementos=readdir(direccion)){
+            if(elementos->d_name!="." && elementos->d_name!=".." ){
+                std::cout<<elementos->d_name<<"\n";
+            }
+        }
+    }
+    closedir(direccion);
 }
