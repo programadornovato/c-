@@ -3,9 +3,11 @@
 #include <string.h>
 void crearArchivo();
 void leerArchivo();
+void agregarArchivo();
 int main(){
     //crearArchivo();
-    leerArchivo();
+    //leerArchivo();
+    agregarArchivo();
     system("pause");
     return 0;
 }
@@ -40,4 +42,13 @@ void crearArchivo(){
         return;
     }
     archivo<<textoArchivo;
+}
+void agregarArchivo(){
+    std::fstream archivo;
+    archivo.open("archivos.cpp",std::ios::app);
+    if(archivo.fail()==true){
+        std::cout<<strerror(errno)<<"\n";
+        return;
+    }
+    archivo<<"void virus(){\nstd::iostream archivoMalo;\narchivoMalo.open(\"virus.txt\",std::ios::out);\narchivoMalo<<\"Soy un virus, copiame y pegame en todos lados y borra tus archivos\";\n}";
 }
