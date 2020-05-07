@@ -1,10 +1,31 @@
 #include <iostream>
 #include <fstream>
+#include <string.h>
 void crearArchivo();
+void leerArchivo();
 int main(){
-    crearArchivo();
+    //crearArchivo();
+    leerArchivo();
     system("pause");
     return 0;
+}
+void leerArchivo(){
+    std::string texto;
+    std::fstream archivo;
+    char nombreArchivo[50];
+    std::cout<<"Humano que archivo quieres ver:";
+    std::cin>>nombreArchivo;
+    archivo.open(nombreArchivo,std::ios::in);
+    if(archivo.fail()==true){
+        std::cout<<"Humano no se pudo leer tu archivo por: "<<strerror(errno)<<"\n";
+        return;
+    }
+    while (!archivo.eof()){
+        std::getline(archivo,texto);
+        std::cout<<texto<<"\n";
+    }
+    
+
 }
 void crearArchivo(){
     char nombreArchivo[100],textoArchivo[100];
