@@ -7,13 +7,15 @@ void leerArchivo();
 void agregarArchivo();
 void listaArchivos();
 void renombrarArchivo();
+void borrarArchivo();
 bool existeArchivo(char nombreArchivo[100]);
 int main(){
     //crearArchivo();
     //leerArchivo();
     //agregarArchivo();
     //listaArchivos();
-    renombrarArchivo();
+    //renombrarArchivo();
+    borrarArchivo();
     system("pause");
     return 0;
 }
@@ -85,6 +87,18 @@ void renombrarArchivo(){
         }
     }else{
         std::cout<<"Humano estupido el archivo "<<originalNombre<<" no existe wey.\n";
+    }
+}
+void borrarArchivo(){
+    char nombreArchivo[100];
+    std::cout<<"Humano ingresa el nombre del archivo a borrar:";
+    std::cin>>nombreArchivo;
+    if(existeArchivo(nombreArchivo)==true){
+        if(remove(nombreArchivo)==0){
+            std::cout<<"Humano tu archivo "<<nombreArchivo<<" fue borrado existosamente\n";
+        }
+    }else{
+        std::cout<<"Humano estupido el archivo "<<nombreArchivo<<" no existe\n";
     }
 }
 bool existeArchivo(char nombreArchivo[100]){
