@@ -6,11 +6,14 @@ void crearArchivo();
 void leerArchivo();
 void agregarArchivo();
 void listaArchivos();
+void renombrarArchivo();
+bool existeArchivo(char nombreArchivo[100]);
 int main(){
     //crearArchivo();
     //leerArchivo();
     //agregarArchivo();
-    listaArchivos();
+    //listaArchivos();
+    renombrarArchivo();
     system("pause");
     return 0;
 }
@@ -69,4 +72,27 @@ void listaArchivos(){
         }
     }
     closedir(direccion);
+}
+void renombrarArchivo(){
+    char originalNombre[100],nuevoNombre[100];
+    std::cout<<"Humano ingresa el nombre del archivo:";
+    std::cin>>originalNombre;
+    if(existeArchivo(originalNombre)==true){
+        std::cout<<"Humano ingresa el nuevo nombre:";
+        std::cin>>nuevoNombre;
+        if(rename(originalNombre,nuevoNombre)==0){
+            std::cout<<"Humano tu archivo "<<originalNombre<<" fue renombrado como "<<nuevoNombre<<"\n";
+        }
+    }else{
+        std::cout<<"Humano estupido el archivo "<<originalNombre<<" no existe wey.\n";
+    }
+}
+bool existeArchivo(char nombreArchivo[100]){
+    std::fstream archivo;
+    archivo.open(nombreArchivo,std::ios::in);
+    if(archivo.good()==true){
+        return true;
+    }else{
+        return false;
+    }
 }
