@@ -9,15 +9,62 @@ void listaArchivos();
 void renombrarArchivo();
 void borrarArchivo();
 bool existeArchivo(char nombreArchivo[100]);
+void menu();
 int main(){
-    //crearArchivo();
-    //leerArchivo();
-    //agregarArchivo();
-    //listaArchivos();
-    //renombrarArchivo();
-    borrarArchivo();
+    menu();
     system("pause");
     return 0;
+}
+void menu(){
+    int opcion;
+    regresaMenu:
+    system("cls");
+    std::cout<<"1.- Listar archivos\n";
+    std::cout<<"2.- Leer archivo\n";
+    std::cout<<"3.- Crear archivo\n";
+    std::cout<<"4.- Borrar archivo\n";
+    std::cout<<"5.- Renombrar archivo\n";
+    std::cout<<"6.- Agregar texto a un archivo\n";
+    std::cout<<"7.- Salir\n";
+    std::cout<<"Ingresa una opcion:";
+    std::cin>>opcion;
+    std::cin.ignore();
+    switch (opcion)
+    {
+    case 1:
+        listaArchivos();
+        system("pause");
+        goto regresaMenu;
+        break;
+    case 2:
+        leerArchivo();
+        system("pause");
+        goto regresaMenu;
+        break;
+    case 3:
+        crearArchivo();
+        system("pause");
+        goto regresaMenu;
+        break;
+    case 4:
+        borrarArchivo();
+        system("pause");
+        goto regresaMenu;
+        break;
+    case 5:
+        renombrarArchivo();
+        system("pause");
+        goto regresaMenu;
+        break;
+    case 6:
+        agregarArchivo();
+        system("pause");
+        goto regresaMenu;
+        break;
+    default:
+        return;
+        break;
+    }
 }
 void leerArchivo(){
     std::string texto;
